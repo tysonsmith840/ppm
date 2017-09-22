@@ -5,7 +5,12 @@
 class PPM{
     public:
      PPM();
-     bool compare(const PPM& name, const PPM& picture);  // operator to compare 1 object with another using <, >, <=, >=, ==
+     bool operator<(const PPM& name)const;
+     bool operator>(const PPM& name)const;
+     bool operator<=(const PPM& name)const;
+     bool operator>=(const PPM& name)const;
+     bool operator==(const PPM& name)const;
+     bool operator!=(const PPM& name)const;
      PPM& operator+(PPM& name/*, PPM& name2*/); //adds red green and blue channels, if any channels is over 255 it should be set to 255
      PPM& operator-(PPM& name/*, PPM& name2*/); //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
      PPM operator+(const PPM& name)const; //adds two PPM objects together creating a new object  
