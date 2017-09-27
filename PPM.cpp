@@ -4,6 +4,30 @@
 
 PPM::PPM() { 
 }
+int PPM::getWidth( ) const {
+
+}
+int PPM::getHeight( ) const{
+
+}
+int PPM::getMaxColorValue( ) const {
+
+}
+int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
+
+}
+void PPM::setWidth( int& width ) {
+
+}
+void PPM::setHeight( int& height ) {
+
+}
+void PPM::setMaxColorValue( int& max_color_value ) {
+
+}
+void PPM::setChannel( const int& row, const int& column, const int& channel, const int& value ) {
+
+}
 
 std::ostream& operator<<(const std::ostream& fout, const PPM& myPPM) { //operator to send object to std::ostream
    fout << myPPM;

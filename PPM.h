@@ -5,6 +5,14 @@
 class PPM{
     public:
      PPM();
+     int getWidth( ) const;
+     int getHeight( ) const;
+     int getMaxColorValue( ) const;
+     int getChannel( const int& row, const int& column, const int& channel ) const;
+     void setWidth( int& width );
+     void setHeight( int& height );
+     void setMaxColorValue( int& max_color_value );
+     void setChannel( const int& row, const int& column, const int& channel, const int& value );
      bool operator<(const PPM& name)const;
      bool operator>(const PPM& name)const;
      bool operator<=(const PPM& name)const;
