@@ -29,24 +29,45 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 
 }
 
-std::ostream& operator<<(std::ostream& fout, const PPM& myPPM) { //operator to send object to std::ostream
-   fout << myPPM;
+std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
+   char chan [totalChan]
+
+   
+    fout << myPPM;
 }
-std::istream &operator>>(std::istream &fin, const PPM& myPPM) { // operator to retrieve object from std::istream
+std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retrieve object from std::istream
     std::string allInput="";
-    std::vector<char> pixels;
+    int numbers;
+    std::vector< std::vector<char> > pixels;
     std::string x;
+    unsigned char channel[3];
+    int i;
     //P6
     fin >> x;
     //width
-    myPPM.setWidth() = fin >> myPPM;
+    fin >> allInput;
+    numbers=std::stoi(allInput);
+    myPPM.setWidth(numbers);
     //height
-    myPPM.setHeight() = fin >> myPPM;
+    fin >> allInput;
+    numbers=std::stoi(allInput);
+    myPPM.setHeight(numbers);
     //max_color_value
-    myPPM.setMaxColorValue() = fin >> myPPM;
+    fin >> allInput;
+    numbers = std::stoi(allInput);
+    myPPM.setMaxColorValue(numbers);
     //throw away newline char
     fin >> x;
+    char chan
+    int size = myPPM.getWidth()*myPPM.getHeight()*3;
     //loop through binary
+    for (i=0;i<myPPM.getHeight;i++) {
+       for (j=0;j<myPPM.getWidth;i++) {
+         fin.read(
+      fin >> channel;
+      pixels.push_back(channel);
+     }
+    }
 
 }
 bool PPM::operator<(const PPM& name)const{

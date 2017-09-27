@@ -33,6 +33,6 @@ class PPM{
 
 };
 
-     std::ostream &operator<<(std::ostream &fout, const PPM &myPPM); //operator to send object to std::ostream cout << PPMIns;
-     std::istream &operator>>(std::istream &fin, const PPM &myPPM); // operator to retrieve object from std::istream
+     std::ostream &operator<<(std::ostream &fout, PPM &myPPM); //operator to send object to std::ostream cout << PPMIns;
+     std::istream &operator>>(std::istream &fin, PPM &myPPM); // operator to retrieve object from std::istream
 #endif /* PPM_H_ */
