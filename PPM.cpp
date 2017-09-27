@@ -2,37 +2,44 @@
 #include <cstdlib>
 #include <iomanip>
 
+
 PPM::PPM() { 
 }
 int PPM::getWidth( ) const {
-
+    return mWidth;
 }
 int PPM::getHeight( ) const{
-
+    return mHeight;
 }
 int PPM::getMaxColorValue( ) const {
-
+    return mMaxColorValue;
 }
 int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
 
 }
 void PPM::setWidth( int& width ) {
-
+    mWidth=width;
 }
 void PPM::setHeight( int& height ) {
-
+    mHeight=height;
 }
 void PPM::setMaxColorValue( int& max_color_value ) {
-
+    mMaxColorValue=max_color_value;
 }
 void PPM::setChannel( const int& row, const int& column, const int& channel, const int& value ) {
 
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
-   char chan [totalChan]
-
-   
+   char chan [totalChan];
+   int i, j, k;
+      for (i=0;i<myPPM.getHeight();i++) {
+       for (j=0;j<myPPM.getWidth()*3;j++) {
+        for (k=0;k<totalChan;k++) {
+   	  chan[k]=myPPM.getChannel(i,j,k);
+      }
+     }
+    } 
     fout << myPPM;
 }
 std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retrieve object from std::istream
@@ -41,7 +48,8 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     std::vector< std::vector<char> > pixels;
     std::string x;
     unsigned char channel[3];
-    int i;
+    char arr[3];
+    int i,j,k;
     //P6
     fin >> x;
     //width
@@ -58,17 +66,19 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     myPPM.setMaxColorValue(numbers);
     //throw away newline char
     fin >> x;
-    char chan
+    char chan;
     int size = myPPM.getWidth()*myPPM.getHeight()*3;
     //loop through binary
-    for (i=0;i<myPPM.getHeight;i++) {
-       for (j=0;j<myPPM.getWidth;i++) {
-         fin.read(
-      fin >> channel;
-      pixels.push_back(channel);
+    for (i=0;i<myPPM.getHeight();i++) {
+       for (j=0;j<myPPM.getWidth();i++) {
+         fin.read(arr,size);
+         for (k=0;k<3;k++) {
+    	   myPPM.setChannel(i,j,k,channel[k]);
+     }
      }
     }
 
+      pixels.push_back(channel);
 }
 bool PPM::operator<(const PPM& name)const{
 

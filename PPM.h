@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 
+const int totalChan = 3;
+
 class PPM{
     public:
      PPM();
@@ -30,7 +32,10 @@ class PPM{
      PPM& operator/(double value);  //divide each channel by a double, convert back to an int and ensure that all channels are within bounds. /=
      PPM operator*(const double value)const; //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
      PPM operator/(const double value)const; //divide each channel by a double and create a new PPM object ex. PPM3=PPM1/.33
-
+     private:
+      int mWidth=0;
+      int mHeight=0;
+      int mMaxColorValue=0;
 };
 
      std::ostream &operator<<(std::ostream &fout, PPM &myPPM); //operator to send object to std::ostream cout << PPMIns;
