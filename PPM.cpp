@@ -29,20 +29,24 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 
 }
 
-std::ostream& operator<<(const std::ostream& fout, const PPM& myPPM) { //operator to send object to std::ostream
+std::ostream& operator<<(std::ostream& fout, const PPM& myPPM) { //operator to send object to std::ostream
    fout << myPPM;
 }
-std::istream &operator>>(const std::istream &fin, const PPM& myPPM) { // operator to retrieve object from std::istream
-    fin(filename, std::ios::binary);
+std::istream &operator>>(std::istream &fin, const PPM& myPPM) { // operator to retrieve object from std::istream
     std::string allInput="";
+    std::vector<char> pixels;
+    std::string x;
     //P6
-    fin >> myPPM;
+    fin >> x;
     //width
-    fin >> myPPM;
+    myPPM.setWidth() = fin >> myPPM;
     //height
-    fin >> myPPM;
+    myPPM.setHeight() = fin >> myPPM;
     //max_color_value
-    fin >> myPPM;
+    myPPM.setMaxColorValue() = fin >> myPPM;
+    //throw away newline char
+    fin >> x;
+    //loop through binary
 
 }
 bool PPM::operator<(const PPM& name)const{

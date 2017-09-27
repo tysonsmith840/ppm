@@ -1,6 +1,9 @@
 #ifndef _PPM_H_
 #define _PPM_H_
 #include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
 
 class PPM{
     public:
@@ -30,6 +33,6 @@ class PPM{
 
 };
 
-     std::ostream &operator<<(const std::ostream &fout, const PPM &myPPM); //operator to send object to std::ostream cout << PPMIns;
-     std::istream &operator>>(const std::istream &fin, const PPM &myPPM); // operator to retrieve object from std::istream
+     std::ostream &operator<<(std::ostream &fout, const PPM &myPPM); //operator to send object to std::ostream cout << PPMIns;
+     std::istream &operator>>(std::istream &fin, const PPM &myPPM); // operator to retrieve object from std::istream
 #endif /* PPM_H_ */
