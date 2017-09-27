@@ -33,7 +33,17 @@ std::ostream& operator<<(const std::ostream& fout, const PPM& myPPM) { //operato
    fout << myPPM;
 }
 std::istream &operator>>(const std::istream &fin, const PPM& myPPM) { // operator to retrieve object from std::istream
+    fin(filename, std::ios::binary);
+    std::string allInput="";
+    //P6
     fin >> myPPM;
+    //width
+    fin >> myPPM;
+    //height
+    fin >> myPPM;
+    //max_color_value
+    fin >> myPPM;
+
 }
 bool PPM::operator<(const PPM& name)const{
 
