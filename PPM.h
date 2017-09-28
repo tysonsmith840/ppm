@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 
-const int totalChan = 3;
+const int Channel = 3;
 
 class PPM{
     public:

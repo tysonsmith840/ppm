@@ -15,7 +15,9 @@ int PPM::getMaxColorValue( ) const {
     return mMaxColorValue;
 }
 int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
-
+    int loQueBusca;
+    loQueBusca = row*(mWidth*3)+column*3+channel;
+    return loQueBusca;
 }
 void PPM::setWidth( int& width ) {
     mWidth=width;
@@ -31,6 +33,7 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
+    
    /*char chan [totalChan];
    int i, j, k;
       for (i=0;i<myPPM.getHeight();i++) {
@@ -45,32 +48,38 @@ std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send ob
 std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retrieve object from std::istream
     std::string allInput="";
     int numbers;
-    std::vector< std::vector<char> > pixels;
     std::string x;
+    unsigned char colorValue;
+    std::vector<unsigned char> pixels;
     unsigned char channel[3];
     char arr[3];
     int i,j,k;
     //P6
     fin >> x;
     //width
-    fin >> allInput;
-    numbers=std::stoi(allInput);
+    fin >> numbers;
+    //numbers=std::stoi(allInput);
     myPPM.setWidth(numbers);
     //height
-    fin >> allInput;
-    numbers=std::stoi(allInput);
+    fin >> numbers;
+    //numbers=std::stoi(allInput);
     myPPM.setHeight(numbers);
     //max_color_value
-    fin >> allInput;
-    numbers = std::stoi(allInput);
+    fin >> numbers;
+    //numbers = std::stoi(allInput);
     myPPM.setMaxColorValue(numbers);
     //throw away newline char
     fin >> x;
     char chan;
     int size = myPPM.getWidth()*myPPM.getHeight()*3;
     //loop through binary
-    
-   
+    for (i=0;i<size;i++) {
+      fin >> colorValue;
+      pixels.push_back(colorValue);
+   }
+    /*for (i=0;i<size;i++) {
+       pixels.push_back( 
+     }*/ 
     /* for (i=0;i<myPPM.getHeight();i++) {
        for (j=0;j<myPPM.getWidth();i++) {
          fin.read(arr,size);
