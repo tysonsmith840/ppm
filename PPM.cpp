@@ -31,7 +31,7 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
-   char chan [totalChan];
+   /*char chan [totalChan];
    int i, j, k;
       for (i=0;i<myPPM.getHeight();i++) {
        for (j=0;j<myPPM.getWidth()*3;j++) {
@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send ob
       }
      }
     } 
-    fout << myPPM;
+    fout << myPPM;*/
 }
 std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retrieve object from std::istream
     std::string allInput="";
@@ -69,7 +69,9 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     char chan;
     int size = myPPM.getWidth()*myPPM.getHeight()*3;
     //loop through binary
-    for (i=0;i<myPPM.getHeight();i++) {
+    
+   
+    /* for (i=0;i<myPPM.getHeight();i++) {
        for (j=0;j<myPPM.getWidth();i++) {
          fin.read(arr,size);
          for (k=0;k<3;k++) {
@@ -78,7 +80,7 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
      }
     }
 
-      pixels.push_back(channel);
+      pixels.push_back(channel);*/
 }
 bool PPM::operator<(const PPM& name)const{
 
