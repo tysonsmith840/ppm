@@ -13,6 +13,7 @@ class PPM{
      int getWidth( ) const;
      int getHeight( ) const;
      int getMaxColorValue( ) const;
+     int getSize( ) const;
      int getChannel( const int& row, const int& column, const int& channel ) const;
      void setWidth( int& width );
      void setHeight( int& height );

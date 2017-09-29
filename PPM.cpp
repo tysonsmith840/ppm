@@ -17,6 +17,9 @@ int PPM::getHeight( ) const{
 int PPM::getMaxColorValue( ) const {
     return mMaxColorValue;
 }
+int PPM::getSize( ) const {
+    return mWidth*mHeight;
+}
 int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
     int desChannel;
     desChannel = row*(mWidth*3)+column*3+channel;
@@ -27,8 +30,16 @@ int PPM::getChannel( const int& row, const int& column, const int& channel ) con
    }
 }
 void PPM::setWidth( int& width ) {
+    int extra;
     if (width >=0) {
     mWidth=width;
+   } 
+    int totalPixels = (mWidth * mHeight * 3);
+    extra = totalPixels % mWidth;
+    int need = mWidth - extra;
+    int i;
+    for (i=0;i<need;i++) {
+     pixels.push_back(0);
    }
 }
 void PPM::setHeight( int& height ) {
@@ -52,7 +63,12 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
-    
+   int i;
+   fout << "P6 ";
+   fout << myPPM.getWidth() << " " << myPPM.getHeight() << myPPM.getMaxColorValue() << "\n";
+   for (i=0;i<pixels.size();i++) {
+     fout << pixels[i];
+  } 
    /*char chan [totalChan];
    int i, j, k;
       for (i=0;i<myPPM.getHeight();i++) {
@@ -110,41 +126,62 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
 
       pixels.push_back(channel);*/
 }
-bool PPM::operator<(const PPM& name)const{
+bool PPM::operator<(const PPM& ppm)const{
+    return getSize()<ppm.getSize();
+}
+bool PPM::operator>(const PPM& ppm)const{
+    return getSize()>ppm.getSize();
+}
+bool PPM::operator<=(const PPM& ppm)const{
+    return getSize()<=ppm.getSize();
+}
+bool PPM::operator>=(const PPM& ppm)const{
+    return getSize()>=ppm.getSize();
+}
+bool PPM::operator==(const PPM& ppm)const{
+    return getSize()==ppm.getSize();
+}
+bool PPM::operator!=(const PPM& ppm)const{
+    return getSize()!=ppm.getSize();
+}
+PPM& PPM::operator+(PPM& ppm) { //adds red green and blue channels, if any channels is over 255 it should be set to 255
 
 }
-bool PPM::operator>(const PPM& name)const{
+PPM& PPM::operator-(PPM& ppm) { //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
 
 }
-bool PPM::operator<=(const PPM& name)const{
+PPM PPM::operator+(const PPM& ppm)const { //adds two PPM objects together creating a new object  
 
 }
-bool PPM::operator>=(const PPM& name)const{
-
-}
-bool PPM::operator==(const PPM& name)const{
-
-}
-bool PPM::operator!=(const PPM& name)const{
-
-}
-PPM& PPM::operator+(PPM& name) { //adds red green and blue channels, if any channels is over 255 it should be set to 255
-
-}
-PPM& PPM::operator-(PPM& name) { //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
-
-}
-PPM PPM::operator+(const PPM& name)const { //adds two PPM objects together creating a new object  
-
-}
-PPM PPM::operator-(const PPM& name)const { //subtracts two PPM objects together creating a new object
+PPM PPM::operator-(const PPM& ppm)const { //subtracts two PPM objects together creating a new object
 
 }
 PPM& PPM::operator*(double value) { //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
-
+    int i;
+    int pixel;
+    for (i=0;i<pixels.size();i++) {
+     pixel = (int)pixels[i] * value;
+     pixels[i] = pixel;
+     if (pixel > 255) {
+      pixels[i] = 255;
+     }else if (pixel < 0) {
+       pixels[i] = 0;
+     }else {
+      pixels[i] = pixel;
+   }
+  }
+  return *this;
 }
 PPM& PPM::operator/(double value) {  //divide each channel by a double, convert back to an int and ensure that all channels are within bounds. /=
-
+    /* int i;
+      for (i=0;i<pixels.size();i++) {
+         (int)pixels[i] *= value;
+      if (pixels[i] > 255) {
+         pixels[i] = 255;
+       }else if (pixels[i] < 0) {
+         pixels[i] = 0;
+    }
+   }*/
 }
 PPM PPM::operator*(const double value)const { //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
 
