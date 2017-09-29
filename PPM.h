@@ -33,6 +33,7 @@ class PPM{
      PPM operator*(const double value)const; //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
      PPM operator/(const double value)const; //divide each channel by a double and create a new PPM object ex. PPM3=PPM1/.33
      private:
+      std::vector<unsigned char> pixels;
       int mWidth=0;
       int mHeight=0;
       int mMaxColorValue=0;

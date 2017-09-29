@@ -4,6 +4,9 @@
 
 
 PPM::PPM() { 
+   mWidth = 0;
+   mHeight = 0;
+   mMaxColorValue = 0;
 }
 int PPM::getWidth( ) const {
     return mWidth;
@@ -15,21 +18,37 @@ int PPM::getMaxColorValue( ) const {
     return mMaxColorValue;
 }
 int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
-    int loQueBusca;
-    loQueBusca = row*(mWidth*3)+column*3+channel;
-    return loQueBusca;
+    int desChannel;
+    desChannel = row*(mWidth*3)+column*3+channel;
+    if (desChannel < mWidth * mHeight * 3) {
+    return pixels[desChannel];
+    }else {
+      return -1;
+   }
 }
 void PPM::setWidth( int& width ) {
+    if (width >=0) {
     mWidth=width;
+   }
 }
 void PPM::setHeight( int& height ) {
+    if (height >= 0) {
     mHeight=height;
+   }
 }
 void PPM::setMaxColorValue( int& max_color_value ) {
+    if (max_color_value >= 0 && max_color_value <= 255) {
     mMaxColorValue=max_color_value;
+   }
 }
 void PPM::setChannel( const int& row, const int& column, const int& channel, const int& value ) {
-
+    if (value >= 0 && value <= mMaxColorValue) {
+    int desChannel;
+    desChannel = row*(mWidth*3)+column*3+channel;
+    if (desChannel < mWidth * mHeight * 3) {
+       pixels[desChannel]=value;
+    }
+  }
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
@@ -57,25 +76,25 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     //P6
     fin >> x;
     //width
-    fin >> numbers;
-    //numbers=std::stoi(allInput);
+    fin >> allInput;
+    numbers=std::stoi(allInput);
     myPPM.setWidth(numbers);
     //height
-    fin >> numbers;
-    //numbers=std::stoi(allInput);
+    fin >> allInput;
+    numbers=std::stoi(allInput);
     myPPM.setHeight(numbers);
     //max_color_value
-    fin >> numbers;
-    //numbers = std::stoi(allInput);
+    fin >> allInput;
+    numbers = std::stoi(allInput);
     myPPM.setMaxColorValue(numbers);
     //throw away newline char
-    fin >> x;
+    //fin >> x;
     char chan;
     int size = myPPM.getWidth()*myPPM.getHeight()*3;
     //loop through binary
     for (i=0;i<size;i++) {
-      fin >> colorValue;
-      pixels.push_back(colorValue);
+      fin >> chan;
+      pixels.push_back(chan);
    }
     /*for (i=0;i<size;i++) {
        pixels.push_back( 
