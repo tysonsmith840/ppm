@@ -6,7 +6,9 @@ int main() {
 
     std::ifstream fin(filename, std::ios::binary);
     fin >>  myPPM;
-    
+   
+    std::ofstream fout("paws.ppm", std::ios::binary);
+    fout << myPPM; 
     std::cout << myPPM.getWidth() << std::endl;
     return 0;
 }

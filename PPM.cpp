@@ -63,12 +63,19 @@ void PPM::setChannel( const int& row, const int& column, const int& channel, con
 }
 
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
-   int i;
+   int i, j, k;
    fout << "P6 ";
-   fout << myPPM.getWidth() << " " << myPPM.getHeight() << myPPM.getMaxColorValue() << "\n";
-   for (i=0;i<pixels.size();i++) {
+   fout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << "\n";
+   for (i=0;i<myPPM.getHeight();i++) {
+      for (j=0;j<myPPM.getWidth()*3;j++) {
+        for (k=0;k<3;k++) {
+         fout << myPPM.getChannel(i,j,k);
+      }
+    }
+  }
+  /* for (i=0;i<pixels.size();i++) {
      fout << pixels[i];
-  } 
+  } */
    /*char chan [totalChan];
    int i, j, k;
       for (i=0;i<myPPM.getHeight();i++) {
@@ -111,7 +118,7 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     for (i=0;i<size;i++) {
       fin >> chan;
       pixels.push_back(chan);
-   }
+    }
     /*for (i=0;i<size;i++) {
        pixels.push_back( 
      }*/ 
@@ -145,7 +152,7 @@ bool PPM::operator!=(const PPM& ppm)const{
     return getSize()!=ppm.getSize();
 }
 PPM& PPM::operator+(PPM& ppm) { //adds red green and blue channels, if any channels is over 255 it should be set to 255
-
+    
 }
 PPM& PPM::operator-(PPM& ppm) { //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
 
@@ -173,15 +180,20 @@ PPM& PPM::operator*(double value) { //multiplies each channel by a double and th
   return *this;
 }
 PPM& PPM::operator/(double value) {  //divide each channel by a double, convert back to an int and ensure that all channels are within bounds. /=
-    /* int i;
-      for (i=0;i<pixels.size();i++) {
-         (int)pixels[i] *= value;
-      if (pixels[i] > 255) {
-         pixels[i] = 255;
-       }else if (pixels[i] < 0) {
-         pixels[i] = 0;
-    }
-   }*/
+     int i;
+     int pixel;
+     for (i=0;i<pixels.size();i++) {
+       pixel = (int)pixels[i] / value;
+       pixels[i] = pixel;
+     if (pixel > 255) {
+       pixels[i] = 255;
+     }else if (pixel < 0) {
+       pixels[i] = 0;
+     }else {
+       pixels[i] = pixel;
+   }
+  }
+  return *this;
 }
 PPM PPM::operator*(const double value)const { //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
 
