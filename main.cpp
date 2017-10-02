@@ -9,6 +9,6 @@ int main() {
    
     std::ofstream fout("paws.ppm", std::ios::binary);
     fout << myPPM; 
-    std::cout << myPPM.getWidth() << std::endl;
+    std::cout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << std::endl;
     return 0;
 }

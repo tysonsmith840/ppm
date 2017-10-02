@@ -3,7 +3,7 @@
 #include <iomanip>
 
 
-PPM::PPM() { 
+PPM::PPM() {
    mWidth = 0;
    mHeight = 0;
    mMaxColorValue = 0;
@@ -21,56 +21,55 @@ int PPM::getSize( ) const {
     return mWidth*mHeight;
 }
 int PPM::getChannel( const int& row, const int& column, const int& channel ) const{
+    if (row < mHeight && row >= 0 && column < mWidth && column >= 0 && channel <3 && channel >= 0) {
     int desChannel;
-    desChannel = row*(mWidth*3)+column*3+channel;
-    if (desChannel < mWidth * mHeight * 3) {
+    desChannel = row*(getWidth()*3)+column*3+channel;
+    if (desChannel < getWidth() * getHeight() * 3 && desChannel >=0) {
     return pixels[desChannel];
-    }else {
-      return -1;
+
+    }
    }
+   return -1;
 }
-void PPM::setWidth( int& width ) {
-    int extra;
-    if (width >=0) {
-    mWidth=width;
-   } 
-    int totalPixels = (mWidth * mHeight * 3);
-    extra = totalPixels % mWidth;
-    int need = mWidth - extra;
-    int i;
-    for (i=0;i<need;i++) {
-     pixels.push_back(0);
-   }
+void PPM::setWidth(const int& width ) {
+    if (width >=0)
+    {
+        mWidth=width;
+        pixels.resize(mWidth*mHeight*3);
+    }
 }
-void PPM::setHeight( int& height ) {
+void PPM::setHeight(const int& height ) {
     if (height >= 0) {
     mHeight=height;
+    pixels.resize(mWidth*mHeight*3);
    }
 }
-void PPM::setMaxColorValue( int& max_color_value ) {
+void PPM::setMaxColorValue(const int& max_color_value ) {
     if (max_color_value >= 0 && max_color_value <= 255) {
     mMaxColorValue=max_color_value;
    }
 }
 void PPM::setChannel( const int& row, const int& column, const int& channel, const int& value ) {
-    if (value >= 0 && value <= mMaxColorValue) {
+    if (value >= 0 && value <= mMaxColorValue && row < mHeight && row >= 0 && column < mWidth && column >= 0 && channel <3 && channel >= 0) {
     int desChannel;
     desChannel = row*(mWidth*3)+column*3+channel;
-    if (desChannel < mWidth * mHeight * 3) {
+    if (desChannel < mWidth * mHeight * 3 && desChannel >=0) {
        pixels[desChannel]=value;
     }
   }
 }
-
 std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
    int i, j, k;
+   unsigned char chan[3];
    fout << "P6 ";
    fout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << "\n";
    for (i=0;i<myPPM.getHeight();i++) {
       for (j=0;j<myPPM.getWidth()*3;j++) {
         for (k=0;k<3;k++) {
+	 chan[k]=myPPM.getChannel(i,j,k);
+	}
          fout << myPPM.getChannel(i,j,k);
-      }
+     
     }
   }
   /* for (i=0;i<pixels.size();i++) {
@@ -93,9 +92,7 @@ std::istream &operator>>(std::istream &fin, PPM& myPPM) { // operator to retriev
     std::string x;
     unsigned char colorValue;
     std::vector<unsigned char> pixels;
-    unsigned char channel[3];
-    char arr[3];
-    int i,j,k;
+    int i;
     //P6
     fin >> x;
     //width
@@ -152,7 +149,7 @@ bool PPM::operator!=(const PPM& ppm)const{
     return getSize()!=ppm.getSize();
 }
 PPM& PPM::operator+(PPM& ppm) { //adds red green and blue channels, if any channels is over 255 it should be set to 255
-    
+        
 }
 PPM& PPM::operator-(PPM& ppm) { //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
 
@@ -196,11 +193,36 @@ PPM& PPM::operator/(double value) {  //divide each channel by a double, convert 
   return *this;
 }
 PPM PPM::operator*(const double value)const { //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
-
+    int i;
+    std::vector<unsigned char> newPixels;
+    int pixel;
+    for (i=0;i<pixels.size();i++) {
+     pixel = (int)pixels[i] * value;
+     //pixels[i] = pixel;
+     if (pixel > 255) {
+      newPixels.push_back(255);
+     }else if (pixel < 0) {
+       newPixels.push_back(0);
+     }else {
+      newPixels.push_back(pixel);
+   }
+  }
+  return *this;
 }
 PPM PPM::operator/(const double value)const { //divide each channel by a double and create a new PPM object ex. PPM3=PPM1/.33
-
+    int i;
+    std::vector<unsigned char> newPixels;
+    int pixel;
+    for (i=0;i<pixels.size();i++) {
+     pixel = (int)pixels[i] / value;
+     //pixels[i] = pixel;
+     if (pixel > 255) {
+      newPixels.push_back(255);
+     }else if (pixel < 0) {
+       newPixels.push_back(0);
+     }else {
+      newPixels.push_back(pixel);
+   }
+  }
+  return *this;
 }
-
-
-
