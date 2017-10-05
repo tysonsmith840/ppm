@@ -1,4 +1,4 @@
-#ifndef _PPM_H_
+fndef _PPM_H_
 #define _PPM_H_
 #include <iostream>
 #include <vector>

@@ -245,37 +245,51 @@ PPM& PPM::operator/=(double value) {  //divide each channel by a double, convert
   }
   return *this;
 }
-PPM PPM::operator*(const double value)const { //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
-    size_t i;
-    std::vector<unsigned char> newPixels;
-    int pixel;
-    for (i=0;i<pixels.size();i++) {
-     pixel = (int)pixels[i] * value;
-     //pixels[i] = pixel;
-     if (pixel > 255) {
-      newPixels.push_back(255);
-     }else if (pixel < 0) {
-       newPixels.push_back(0);
-     }else {
-      newPixels.push_back(pixel);
-   }
-  }
-  return *this;
+PPM PPM::operator*(const double value)const {
+    PPM newppm;
+    int i,j,k;
+    double newVal;
+    newppm.setHeight(getHeight());
+    newppm.setWidth(getWidth());
+    newppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                newVal = value * getChannel(i,j,k);
+                if (newVal < 0) {
+                    newVal = 0;
+                }
+                else if (newVal > 255) {
+                    newVal = 255;
+                }
+                newppm.setChannel(i,j,k,int(newVal));
+            }
+        }
+    }
+    return newppm;
 }
-PPM PPM::operator/(const double value)const { //divide each channel by a double and create a new PPM object ex. PPM3=PPM1/.33
-    size_t i;
-    std::vector<unsigned char> newPixels;
-    int pixel;
-    for (i=0;i<pixels.size();i++) {
-     pixel = (int)pixels[i] / value;
-     //pixels[i] = pixel;
-     if (pixel > 255) {
-      newPixels.push_back(255);
-     }else if (pixel < 0) {
-       newPixels.push_back(0);
-     }else {
-      newPixels.push_back(pixel);
-   }
-  }
-  return *this;
+PPM PPM::operator/(const double value)const {
+    PPM newppm;
+    int i,j,k;
+    double newVal;
+    newppm.setHeight(getHeight());
+    newppm.setWidth(getWidth());
+    newppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                newVal = getChannel(i,j,k) / value;
+                if (newVal < 0) {
+                    newVal = 0;
+                }
+                else if (newVal > 255) {
+                    newVal = 255;
+                }
+                newppm.setChannel(i,j,k,int(newVal));
+            }
+        }
+    }
+    return newppm;
 }
