@@ -213,8 +213,8 @@ PPM PPM::operator-(const PPM& rhs)const {
     }
     return newppm;
 }
-PPM& PPM::operator*(double value) { //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
-    int i;
+PPM& PPM::operator*=(double value) { //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
+    size_t i;
     int pixel;
     for (i=0;i<pixels.size();i++) {
      pixel = (int)pixels[i] * value;
@@ -229,8 +229,8 @@ PPM& PPM::operator*(double value) { //multiplies each channel by a double and th
   }
   return *this;
 }
-PPM& PPM::operator/(double value) {  //divide each channel by a double, convert back to an int and ensure that all channels are within bounds. /=
-     int i;
+PPM& PPM::operator/=(double value) {  //divide each channel by a double, convert back to an int and ensure that all channels are within bounds. /=
+     size_t i;
      int pixel;
      for (i=0;i<pixels.size();i++) {
        pixel = (int)pixels[i] / value;
@@ -246,7 +246,7 @@ PPM& PPM::operator/(double value) {  //divide each channel by a double, convert 
   return *this;
 }
 PPM PPM::operator*(const double value)const { //multiply each channel by a double and create a new PPM object ex. PPM3=PPM1*.67
-    int i;
+    size_t i;
     std::vector<unsigned char> newPixels;
     int pixel;
     for (i=0;i<pixels.size();i++) {
@@ -263,7 +263,7 @@ PPM PPM::operator*(const double value)const { //multiply each channel by a doubl
   return *this;
 }
 PPM PPM::operator/(const double value)const { //divide each channel by a double and create a new PPM object ex. PPM3=PPM1/.33
-    int i;
+    size_t i;
     std::vector<unsigned char> newPixels;
     int pixel;
     for (i=0;i<pixels.size();i++) {
