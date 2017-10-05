@@ -170,32 +170,48 @@ PPM& PPM::operator-=(const PPM& rhs) {
     }
     return *this;
 }
-PPM PPM::operator+(const PPM& ppm)const { //adds two PPM objects together creating a new object  
-   /* newppm = PPM::PPM();
+PPM PPM::operator+(const PPM& rhs)const {
+    PPM newppm;
+    newppm.setHeight(getHeight());
+    newppm.setWidth(getWidth());
+    newppm.setMaxColorValue(getMaxColorValue());
     int i,j,k;
-    
-    return newPPM;*/
-    int i,j,k;
+    int value;
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
             for (k=0;k<3;k++)
             {
-                
+                value = getChannel(i,j,k)+rhs.getChannel(i,j,k);
+                if (value > 255)
+                {
+                    value = 255;
+                }
+                newppm.setChannel(i,j,k,value);
             }
         }
-    }     
+    }
+    return newppm;
 }
-PPM PPM::operator-(const PPM& ppm)const { //subtracts two PPM objects together creating a new object
-
+PPM PPM::operator-(const PPM& rhs)const {
+    PPM newppm;
     int i,j,k;
+    int value;
+    newppm.setHeight(getHeight());
+    newppm.setWidth(getWidth());
+    newppm.setMaxColorValue(getMaxColorValue());
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
             for (k=0;k<3;k++)
             {
-                
+                value = getChannel(i,j,k)-rhs.getChannel(i,j,k);
+                if (value < 0) {
+                    value = 0;
+                }
+                newppm.setChannel(i,j,k,value);
             }
         }
-    }     
+    }
+    return newppm;
 }
 PPM& PPM::operator*(double value) { //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
     int i;
