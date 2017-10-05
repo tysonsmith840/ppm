@@ -136,28 +136,34 @@ bool PPM::operator==(const PPM& ppm)const{
 bool PPM::operator!=(const PPM& ppm)const{
     return getSize()!=ppm.getSize();
 }
-PPM& PPM::operator+=(const PPM& ppm) {
+PPM& PPM::operator+=(const PPM& rhs) {
     int i,j,k;
     int value;
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
             for (k=0;k<3;k++)
             {
-                value = getChannel(i,j,k)+ppm.getChannel(i,j,k);
+                value = getChannel(i,j,k)+rhs.getChannel(i,j,k);
+                if (value > 255) {
+                    value = 255;
+                }
                 setChannel(i,j,k,value);
             }
         }
     }
     return *this;
 }
-PPM& PPM::operator-=(const PPM& ppm) {
+PPM& PPM::operator-=(const PPM& rhs) {
     int i,j,k;
     int value;
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
             for (k=0;k<3;k++)
             {
-                value = getChannel(i,j,k)+ppm.getChannel(i,j,k);
+                value = getChannel(i,j,k)-rhs.getChannel(i,j,k);
+                if (value < 0) {
+                    value = 0;
+                }
                 setChannel(i,j,k,value);
             }
         }
