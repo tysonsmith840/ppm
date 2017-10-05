@@ -118,38 +118,6 @@ std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send ob
   delete chan;
      return fout;
 }
-
-
-/*
-std::ostream& operator<<(std::ostream& fout, PPM& myPPM) { //operator to send object to std::ostream
-   int i, j, k;
-   unsigned char chan[3];
-   fout << "P6 ";
-   fout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << "\n";
-   for (i=0;i<myPPM.getHeight();i++) {
-      for (j=0;j<myPPM.getWidth()*3;j++) {
-        for (k=0;k<3;k++) {
-	 chan[k]=myPPM.getChannel(i,j,k);
-	}
-         fout << myPPM.getChannel(i,j,k);
-     
-    }
-  }
-     return fout;
-}*/
-  /* for (i=0;i<pixels.size();i++) {
-     fout << pixels[i];
-  } */
-   /*char chan [totalChan];
-   int i, j, k;
-      for (i=0;i<myPPM.getHeight();i++) {
-       for (j=0;j<myPPM.getWidth()*3;j++) {
-        for (k=0;k<totalChan;k++) {
-   	  chan[k]=myPPM.getChannel(i,j,k);
-      }
-     }
-    } 
-    fout << myPPM;*/
 bool PPM::operator<(const PPM& ppm)const{
     return getSize()<ppm.getSize();
 }
@@ -168,20 +136,60 @@ bool PPM::operator==(const PPM& ppm)const{
 bool PPM::operator!=(const PPM& ppm)const{
     return getSize()!=ppm.getSize();
 }
-PPM& PPM::operator+(PPM& ppm) { //adds red green and blue channels, if any channels is over 255 it should be set to 255
-        
+PPM& PPM::operator+=(const PPM& ppm) {
+    int i,j,k;
+    int value;
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                value = getChannel(i,j,k)+ppm.getChannel(i,j,k);
+                setChannel(i,j,k,value);
+            }
+        }
+    }
+    return *this;
 }
-PPM& PPM::operator-(PPM& ppm) { //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
-
+PPM& PPM::operator-=(const PPM& ppm) {
+    int i,j,k;
+    int value;
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                value = getChannel(i,j,k)+ppm.getChannel(i,j,k);
+                setChannel(i,j,k,value);
+            }
+        }
+    }
+    return *this;
 }
 PPM PPM::operator+(const PPM& ppm)const { //adds two PPM objects together creating a new object  
    /* newppm = PPM::PPM();
     int i,j,k;
     
     return newPPM;*/
+    int i,j,k;
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                
+            }
+        }
+    }     
 }
 PPM PPM::operator-(const PPM& ppm)const { //subtracts two PPM objects together creating a new object
 
+    int i,j,k;
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                
+            }
+        }
+    }     
 }
 PPM& PPM::operator*(double value) { //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
     int i;

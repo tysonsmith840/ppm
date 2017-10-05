@@ -25,8 +25,8 @@ class PPM{
      bool operator>=(const PPM& name)const;
      bool operator==(const PPM& name)const;
      bool operator!=(const PPM& name)const;
-     PPM& operator+(PPM& name/*, PPM& name2*/); //adds red green and blue channels, if any channels is over 255 it should be set to 255
-     PPM& operator-(PPM& name/*, PPM& name2*/); //subtracts red green and blue channels, if any channel is less than 0 it should be set to 0
+     PPM& operator+=(const PPM& name);
+     PPM& operator-=(const PPM& name);
      PPM operator+(const PPM& name)const; //adds two PPM objects together creating a new object  
      PPM operator-(const PPM& name)const; //subtracts two PPM objects together creating a new object
      PPM &operator*(double value); //multiplies each channel by a double and then converts it back to an int. If any number is out of range then it should be set to the min or max value  *=
