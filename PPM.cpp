@@ -350,15 +350,15 @@ PPM PPM::blue()const {
 PPM PPM::linear()const {
     PPM linearppm;
     int i,j,k;
-    double linearVal;
+    double linearVal=0;
     linearppm.setWidth(getWidth());
     linearppm.setHeight(getHeight());
     linearppm.setMaxColorValue(getMaxColorValue());
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
-            for (k=0;k<3;k+=3)
+            for (k=0;k<3;k++)
             {
-                linearVal = ((0.2126*getChannel(i,j,0))+(0.7152*getChannel(i,j,1))+(0.0722*getChannel(i,j,2)));
+		linearVal = (0.2126*getChannel(i,j,0))+(0.7152*getChannel(i,j,1))+(0.0722*getChannel(i,j,2));
                 linearppm.setChannel(i,j,k,(int)linearVal);
             }
         }
