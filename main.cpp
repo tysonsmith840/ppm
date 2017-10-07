@@ -1,53 +1,6 @@
 #include "PPM.h"
-  
-void options() {
-    char choice;
-    bool C, r, g, b, l;
 
-    std::cout << "C) copy directly" << std::endl;
-    std::cout << "r) grayscale from red" << std::endl;
-    std::cout << "g) grayscale from green" << std::endl;
-    std::cout << "b) grayscale from blue" << std::endl;
-    std::cout << "l) grayscale from linear colorimetric" << std::endl;
-    std::cout << "choice: ";
-    std::cin >> choice;
 
-    if (choice == 'C') {
-       make_copy();
-     }else if (choice == 'r') {
-	grayscale(bool r=true, bool g=false, bool b=false);
-     } else if (choice == 'g') {
-	grayscale(bool r=false, bool g=true, bool b=false);
-     } else if (choice == 'b') {
-	grayscale(bool r=false, bool g=false, bool b=true);
-     } else if (choice == 'l') {  
-
-     }
-/*	    }else if (choice == 'p') {
-	      new_add_two()
-	    }else if (choice == 'm') {
-	      new_minus_two()
-	    }*/
-    }
-}
-void grayscale(bool r, bool g, bool b) {
-    PPM myPPM = PPM();
-    PPM other = PPM();
-    PPM newppm = PPM();
-    std::string input_file;
-    std::string input_file2;
-    std::string output_file; 
-
-    std::cout << "Input Filename? ";
-    std::cin >> input_file;
-
-    std::cout << "Input Filename? ";
-    std::cin >> input_file2;
-
-    std::cout << "Output Filename? ";
-    std::cin >> output_file; 
-
-} 
 void make_copy() {
     PPM myPPM = PPM();
 
@@ -63,13 +16,79 @@ void make_copy() {
    
     std::ofstream fout(output_file, std::ios::binary);
     fout << myPPM; 
-    std::cout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << std::endl;
-    
+} 
+void grayscale(bool r, bool g, bool b, bool l) {
+    PPM myPPM = PPM();
+    PPM newppm = PPM();
+    std::string input_file;
+    std::string output_file; 
+
+    std::cout << "Input Filename? ";
+    std::cin >> input_file;
+
+    std::cout << "Output Filename? ";
+    std::cin >> output_file; 
+
+      std::cout << "1st" << std::endl;
+    std::ifstream fin(input_file, std::ios::binary);
+      std::cout << "2nd" << std::endl;
+    fin >>  myPPM;
+    std::cout << r << g << b << l << std::endl;
+    if (r) {
+      newppm = myPPM.red();
+      std::cout << "3rd" << std::endl;
+    }else if (g) {
+	std::cout << "other 3rd" << std::endl;
+      newppm = myPPM.green();
+    }else if (b) {
+      PPM newppm = myPPM.blue();
+	std::cout << "other 3rd" << std::endl;
+    }else if (l) {
+      PPM newppm = myPPM.red();
+    }
+      std::cout << "4th" << std::endl;
+    std::ofstream fout(output_file, std::ios::binary);
+      std::cout << "5th" << std::endl;
+    fout << newppm;
+      std::cout << "end" << std::endl;
+} 
+
+
+void options() {
+    char choice;
+    bool r, g, b, l;
+
+    std::cout << "C) copy directly" << std::endl;
+    std::cout << "r) grayscale from red" << std::endl;
+    std::cout << "g) grayscale from green" << std::endl;
+    std::cout << "b) grayscale from blue" << std::endl;
+    std::cout << "l) grayscale from linear colorimetric" << std::endl;
+    std::cout << "choice: ";
+    std::cin >> choice;
+
+    if (choice == 'C') {
+       make_copy();
+     }else if (choice == 'r') {
+	grayscale(r=true, g=false, b=false, l=false);
+     } else if (choice == 'g') {
+	grayscale(r=false, g=true, b=false, l=false);
+     } else if (choice == 'b') {
+	grayscale(r=false, g=false, b=true, l=false);
+     } else if (choice == 'l') {  
+	grayscale(r=false, g=false, b=false, l=true);
+     }
+/*	    }else if (choice == 'p') {
+	      new_add_two()
+	    }else if (choice == 'm') {
+	      new_minus_two()
+	    }*/
 }
 
-
 int main() {
-    std::cout << "Input Filename? ";
+    options();
+    return 0;
+}
+    /*std::cout << "Input Filename? ";
     std::cin >> input_file;
 
     std::cout << "Input Filename? ";
@@ -88,25 +107,8 @@ int main() {
     std::ofstream fout(output_file, std::ios::binary);
     fout << myPPM; 
     std::cout << myPPM.getWidth() << " " << myPPM.getHeight() << " " << myPPM.getMaxColorValue() << std::endl;
-    }else if (choice == 'r') {
-    std::ifstream fin(input_file, std::ios::binary);
-    fin >>  myPPM;
-    PPM redPPM = myPPM.red();
-    std::ofstream fout(output_file, std::ios::binary);
-    fout << redPPM; 
-    }else if (choice == 'g') {
-    std::ifstream fin(input_file, std::ios::binary);
-    fin >>  myPPM;
-    PPM greenPPM = myPPM.green();
-    std::ofstream fout(output_file, std::ios::binary);
-    fout << greenPPM; 
-    }else if (choice == 'b') {
-    std::ifstream fin(input_file, std::ios::binary);
-    fin >>  myPPM;
-    PPM bluePPM = myPPM.blue();
-    std::ofstream fout(output_file, std::ios::binary);
-    fout << bluePPM; 
-    }else if (choice == 'a') {
+  */ 
+  /*  }else if (choice == 'a') {
     std::ifstream fin(input_file, std::ios::binary);
     fin >>  myPPM;
     std::ifstream fine(input_file2, std::ios::binary);
@@ -122,8 +124,4 @@ int main() {
     newppm = myPPM - other;
     std::ofstream fout(output_file, std::ios::binary);
     fout << newppm; 
-    }
-
-
-    return 0;
-}
+    }*/
