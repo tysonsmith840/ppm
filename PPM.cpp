@@ -293,3 +293,57 @@ PPM PPM::operator/(const double value)const {
     }
     return newppm;
 }
+PPM PPM::red()const {
+    PPM redppm;
+    int i,j,k;
+    int redVal;
+    redppm.setWidth(getWidth());
+    redppm.setHeight(getWidth());
+    redppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                redVal = getChannel(i,j,0);
+                redppm.setChannel(i,j,k,redVal);
+            }
+        }
+    }
+    return redppm;
+}
+PPM PPM::green()const {
+    PPM greenppm;
+    int i,j,k;
+    int greenVal;
+    greenppm.setWidth(getWidth());
+    greenppm.setHeight(getWidth());
+    greenppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                greenVal = getChannel(i,j,1);
+                greenppm.setChannel(i,j,k,greenVal);
+            }
+        }
+    }
+    return greenppm;
+}
+PPM PPM::blue()const {
+    PPM blueppm;
+    int i,j,k;
+    int blueVal;
+    blueppm.setWidth(getWidth());
+    blueppm.setHeight(getWidth());
+    blueppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k++)
+            {
+                blueVal = getChannel(i,j,2);
+                blueppm.setChannel(i,j,k,blueVal);
+            }
+        }
+    }
+    return blueppm;
+}   
