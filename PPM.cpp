@@ -298,7 +298,7 @@ PPM PPM::red()const {
     int i,j,k;
     int redVal;
     redppm.setWidth(getWidth());
-    redppm.setHeight(getWidth());
+    redppm.setHeight(getHeight());
     redppm.setMaxColorValue(getMaxColorValue());
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
@@ -316,7 +316,7 @@ PPM PPM::green()const {
     int i,j,k;
     int greenVal;
     greenppm.setWidth(getWidth());
-    greenppm.setHeight(getWidth());
+    greenppm.setHeight(getHeight());
     greenppm.setMaxColorValue(getMaxColorValue());
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
@@ -334,7 +334,7 @@ PPM PPM::blue()const {
     int i,j,k;
     int blueVal;
     blueppm.setWidth(getWidth());
-    blueppm.setHeight(getWidth());
+    blueppm.setHeight(getHeight());
     blueppm.setMaxColorValue(getMaxColorValue());
     for (i=0;i<getHeight();i++) {
         for (j=0;j<getWidth();j++) {
@@ -346,4 +346,22 @@ PPM PPM::blue()const {
         }
     }
     return blueppm;
+}
+PPM PPM::linear()const {
+    PPM linearppm;
+    int i,j,k;
+    double linearVal;
+    linearppm.setWidth(getWidth());
+    linearppm.setHeight(getHeight());
+    linearppm.setMaxColorValue(getMaxColorValue());
+    for (i=0;i<getHeight();i++) {
+        for (j=0;j<getWidth();j++) {
+            for (k=0;k<3;k+=3)
+            {
+                linearVal = ((0.2126*getChannel(i,j,0))+(0.7152*getChannel(i,j,1))+(0.0722*getChannel(i,j,2)));
+                linearppm.setChannel(i,j,k,(int)linearVal);
+            }
+        }
+    }
+    return linearppm;
 }   

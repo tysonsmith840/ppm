@@ -39,6 +39,7 @@ class PPM{
      PPM red()const;
      PPM green()const;
      PPM blue()const;
+     PPM linear()const;
      
     private:
       std::vector<unsigned char> pixels;

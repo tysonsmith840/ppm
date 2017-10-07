@@ -29,28 +29,19 @@ void grayscale(bool r, bool g, bool b, bool l) {
     std::cout << "Output Filename? ";
     std::cin >> output_file; 
 
-      std::cout << "1st" << std::endl;
     std::ifstream fin(input_file, std::ios::binary);
-      std::cout << "2nd" << std::endl;
     fin >>  myPPM;
-    std::cout << r << g << b << l << std::endl;
     if (r) {
       newppm = myPPM.red();
-      std::cout << "3rd" << std::endl;
     }else if (g) {
-	std::cout << "other 3rd" << std::endl;
       newppm = myPPM.green();
     }else if (b) {
-      PPM newppm = myPPM.blue();
-	std::cout << "other 3rd" << std::endl;
+      newppm = myPPM.blue();
     }else if (l) {
-      PPM newppm = myPPM.red();
+      newppm = myPPM.linear();
     }
-      std::cout << "4th" << std::endl;
     std::ofstream fout(output_file, std::ios::binary);
-      std::cout << "5th" << std::endl;
     fout << newppm;
-      std::cout << "end" << std::endl;
 } 
 
 
